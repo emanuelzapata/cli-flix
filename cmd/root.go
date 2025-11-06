@@ -9,11 +9,14 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var title string
 var year int
 var apikey string
+
+// var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -73,7 +76,17 @@ func init() {
 	// will be global for your application.
 
 	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cli-flix.yaml)")
+	viper.SetConfigName("cli-flix-config")
+	viper.AddConfigPath(".")
+	viper.AddConfigPath("/etc/cli-flix/")
+	viper.AddConfigPath("$HOME/.cli-flix")
 
+	err := viper.ReadInConfig()
+	fmt.Println(viper.Get("OMDB_API_KEY"))
+	// Handle errors
+	if err != nil {
+		panic(fmt.Errorf("fatal error config file: %w", err))
+	}
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 
