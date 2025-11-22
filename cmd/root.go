@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"fmt"
+	"log"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -76,10 +77,24 @@ func init() {
 	// will be global for your application.
 
 	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cli-flix.yaml)")
+	file, fileError := os.Create("cli-flix-config.env")
+	if fileError != nil {
+		log.Fatal(fileError)
+	}
+	file.Close()
 	viper.SetConfigName("cli-flix-config")
+	// configFile := viper.New()
+	// configFile.SetDefault("user.name", "emanuelzapata")
+	// configFile.SetConfigFile("test-config-data.yaml")
+	// configFile.SafeWriteConfig()
+	// viper.SetConfigName("test-config")
+	// viper.SetConfigType("yaml")
 	viper.AddConfigPath(".")
 	viper.AddConfigPath("/etc/cli-flix/")
 	viper.AddConfigPath("$HOME/.cli-flix")
+	// viper.SetDefault("user.name", "Tom")
+	viper.SetDefault("OMDB_API_KEY", "")
+	viper.WriteConfig()
 
 	err := viper.ReadInConfig()
 	fmt.Println(viper.Get("OMDB_API_KEY"))
