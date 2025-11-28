@@ -52,6 +52,7 @@ Because even developers deserve a good movie break.
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
+		// fmt.Println(viper.Get("THE_MOVIE_DB_API_KEY"))
 		// if apikey != "" {
 		// 	fmt.Println(apikey)
 		// } else if title != "" && year != 0 {
