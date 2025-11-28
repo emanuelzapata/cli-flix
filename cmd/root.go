@@ -24,6 +24,14 @@ var rootCmd = &cobra.Command{
 	Use:   "cli-flix",
 	Short: "🎬  Your personal IMDB in the terminal!",
 	Long: `
+ _____  _     _____     ______ _     _______   __
+/  __ \| |   |_   _|    |  ___| |   |_   _\ \ / /
+| /  \/| |     | |______| |_  | |     | |  \ V / 
+| |    | |     | |______|  _| | |     | |  /   \ 
+| \__/\| |_____| |_     | |   | |_____| |_/ /^\ \
+ \____/\_____/\___/     \_|   \_____/\___/\/   \/
+                                                 
+                                                 	
 ───────────────────────────────────────────────────
 🍿   CLI-Flix — Movie & TV Info Without Leaving Code
 ───────────────────────────────────────────────────
@@ -37,10 +45,6 @@ CLI-Flix has you covered.
 🎥  Instantly fetch details, ratings, and release info
 🧠  Decide if it's worth your precious downtime
 
-Examples:
-  $ cli-flix -t "Star Wars: The Phantom Menace"
-  $ cli-flix --title "The Matrix"
-
 ───────────────────────────────────────────────────
 Because even developers deserve a good movie break.
 🍿
@@ -48,17 +52,17 @@ Because even developers deserve a good movie break.
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		if apikey != "" {
-			fmt.Println(apikey)
-		} else if title != "" && year != 0 {
-			fmt.Println("Movie was given with a year")
-			fmt.Println(title)
-			fmt.Println(year)
-		} else if title != "" {
-			fmt.Println("Movie title was given only")
-		} else if title == "" && year != 0 {
-			fmt.Println("Only year was given, please give us a title")
-		}
+		// if apikey != "" {
+		// 	fmt.Println(apikey)
+		// } else if title != "" && year != 0 {
+		// 	fmt.Println("Movie was given with a year")
+		// 	fmt.Println(title)
+		// 	fmt.Println(year)
+		// } else if title != "" {
+		// 	fmt.Println("Movie title was given only")
+		// } else if title == "" && year != 0 {
+		// 	fmt.Println("Only year was given, please give us a title")
+		// }
 	},
 }
 
@@ -92,12 +96,11 @@ func init() {
 	viper.AddConfigPath(".")
 	viper.AddConfigPath("/etc/cli-flix/")
 	viper.AddConfigPath("$HOME/.cli-flix")
-	// viper.SetDefault("user.name", "Tom")
-	viper.SetDefault("OMDB_API_KEY", "")
+	viper.SetDefault("THE_MOVIE_DB_API_KEY", "")
 	viper.WriteConfig()
 
 	err := viper.ReadInConfig()
-	fmt.Println(viper.Get("OMDB_API_KEY"))
+	fmt.Println(viper.Get("THE_MOVIE_DB_API_KEY"))
 	// Handle errors
 	if err != nil {
 		panic(fmt.Errorf("fatal error config file: %w", err))
@@ -105,9 +108,9 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 
-	rootCmd.Flags().StringVarP(&title, "title", "t", "", "Movie or TV Show Title")
-	rootCmd.Flags().IntVarP(&year, "year", "y", 0, "Year of the TV Show or Movie")
-	rootCmd.Flags().StringVarP(&apikey, "login", "", "", "Login Using Users API Key")
-
-	rootCmd.Flags().BoolP("help", "h", false, "Get help")
+	// TODO: Delete
+	// rootCmd.Flags().StringVarP(&title, "title", "t", "", "Movie or TV Show Title")
+	// rootCmd.Flags().IntVarP(&year, "year", "y", 0, "Year of the TV Show or Movie")
+	// rootCmd.Flags().StringVarP(&apikey, "login", "", "", "Login Using Users API Key")
+	// rootCmd.Flags().BoolP("help", "h", false, "Get help")
 }
