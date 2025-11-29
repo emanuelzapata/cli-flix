@@ -82,30 +82,51 @@ func init() {
 	// will be global for your application.
 
 	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cli-flix.yaml)")
-	file, fileError := os.Create("cli-flix-config.env")
-	if fileError != nil {
-		log.Fatal(fileError)
-	}
-	file.Close()
 	viper.SetConfigName("cli-flix-config")
-	// configFile := viper.New()
-	// configFile.SetDefault("user.name", "emanuelzapata")
-	// configFile.SetConfigFile("test-config-data.yaml")
-	// configFile.SafeWriteConfig()
-	// viper.SetConfigName("test-config")
-	// viper.SetConfigType("yaml")
 	viper.AddConfigPath(".")
 	viper.AddConfigPath("/etc/cli-flix/")
 	viper.AddConfigPath("$HOME/.cli-flix")
-	viper.SetDefault("THE_MOVIE_DB_API_KEY", "")
-	viper.WriteConfig()
-
-	err := viper.ReadInConfig()
-	fmt.Println(viper.Get("THE_MOVIE_DB_API_KEY"))
-	// Handle errors
-	if err != nil {
-		panic(fmt.Errorf("fatal error config file: %w", err))
+	if _, err := os.Stat("cli-flix-config.env"); os.IsNotExist(err) {
+		fmt.Println("Creating file")
+		file, fileError := os.Create("cli-flix-config.env")
+		if fileError != nil {
+			log.Fatal(fileError)
+		}
+		file.Close()
+		viper.SetDefault("THE_MOVIE_DB_API_KEY", "")
+		viper.WriteConfig()
+	} else {
+		fmt.Println("File exists")
+		err := viper.ReadInConfig()
+		fmt.Println(viper.Get("THE_MOVIE_DB_API_KEY"))
+		// Handle errors
+		if err != nil {
+			panic(fmt.Errorf("fatal error config file: %w", err))
+		}
+		if viper.Get("THE_MOVIE_DB_API_KEY") == "" {
+			fmt.Println("IMDB Api key is empty")
+		}
 	}
+
+	// viper.SetConfigName("cli-flix-config")
+	// // configFile := viper.New()
+	// // configFile.SetDefault("user.name", "emanuelzapata")
+	// // configFile.SetConfigFile("test-config-data.yaml")
+	// // configFile.SafeWriteConfig()
+	// // viper.SetConfigName("test-config")
+	// // viper.SetConfigType("yaml")
+	// viper.AddConfigPath(".")
+	// viper.AddConfigPath("/etc/cli-flix/")
+	// viper.AddConfigPath("$HOME/.cli-flix")
+	// viper.SetDefault("THE_MOVIE_DB_API_KEY", "")
+	// viper.WriteConfig()
+
+	// err := viper.ReadInConfig()
+	// fmt.Println(viper.Get("THE_MOVIE_DB_API_KEY"))
+	// // Handle errors
+	// if err != nil {
+	// 	panic(fmt.Errorf("fatal error config file: %w", err))
+	// }
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 
