@@ -30,7 +30,6 @@ var loginCmd = &cobra.Command{
 		// }
 		// viper.SetDefault("API_KEY", "")
 		// viper.WriteConfig()
-		// viper.
 	},
 }
 
