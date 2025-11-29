@@ -23,13 +23,6 @@ var loginCmd = &cobra.Command{
 		fmt.Println(apiKey)
 		viper.Set("THE_MOVIE_DB_API_KEY", apiKey)
 		viper.WriteConfig()
-		// viper.SetConfigName("cli-flix-conf")
-		// err := viper.ReadInConfig()
-		// if err != nil {
-		// 	panic(fmt.Errorf("fatal error config file: %w", err))
-		// }
-		// viper.SetDefault("API_KEY", "")
-		// viper.WriteConfig()
 	},
 }
 
@@ -44,6 +37,5 @@ func init() {
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// loginCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	loginCmd.Flags().StringVarP(&apiKey, "apikey", "a", "", "TheMovieDB API Key")
 }

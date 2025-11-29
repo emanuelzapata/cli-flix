@@ -43,6 +43,5 @@ func init() {
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// recommendCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	recommendCmd.Flags().BoolP("random", "r", false, "Get a random (good) movie")
 }
