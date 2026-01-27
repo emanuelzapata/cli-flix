@@ -1,5 +1,5 @@
 /*
-Copyright © 2026 NAME HERE <EMAIL ADDRESS>
+Copyright © 2026 Emanuel Zapata
 */
 package cmd
 
@@ -14,20 +14,38 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "cli-flix",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+	Short: "🎬  Your personal IMDB in the terminal!",
+	Long: `
+ _____  _     _____     ______ _     _______   __
+/  __ \| |   |_   _|    |  ___| |   |_   _\ \ / /
+| /  \/| |     | |______| |_  | |     | |  \ V / 
+| |    | |     | |______|  _| | |     | |  /   \ 
+| \__/\| |_____| |_     | |   | |_____| |_/ /^\ \
+ \____/\_____/\___/     \_|   \_____/\___/\/   \/
+                                                 
+                                                 	
+───────────────────────────────────────────────────
+🍿   CLI-Flix — Movie & TV Info Without Leaving Code
+───────────────────────────────────────────────────
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+Ever been deep in a coding flow and thought:
+“Man, I could use a movie break...”
+
+CLI-Flix has you covered.
+
+✨  Search movies and shows by name
+🎥  Instantly fetch details, ratings, and release info
+🧠  Decide if it's worth your precious downtime
+
+───────────────────────────────────────────────────
+Because even developers deserve a good movie break.
+🍿
+`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
@@ -36,14 +54,8 @@ func Execute() {
 }
 
 func init() {
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
 	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cli-flix.yaml)")
 
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
 	viper.SetConfigName("cli-flix-config")
 	viper.AddConfigPath(".")
 	viper.AddConfigPath("/etc/cli-flix/")
@@ -54,6 +66,4 @@ func init() {
 		viper.SetDefault("THE_MOVIE_DB_API_KEY", "")
 		viper.WriteConfig()
 	}
-
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
