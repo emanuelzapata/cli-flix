@@ -1,16 +1,15 @@
 /*
 Copyright © 2026 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
+	"errors"
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
-
-
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -45,7 +44,16 @@ func init() {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
+	viper.SetConfigName("cli-flix-config")
+	viper.AddConfigPath(".")
+	viper.AddConfigPath("/etc/cli-flix/")
+	viper.AddConfigPath("$HOME/.cli-flix")
+	_, err := os.Stat("cli-flix-config.env")
+	if errors.Is(err, os.ErrNotExist) {
+		os.Create("cli-flix-config.env")
+		viper.SetDefault("THE_MOVIE_DB_API_KEY", "")
+		viper.WriteConfig()
+	}
+
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
-
-
