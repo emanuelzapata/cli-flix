@@ -7,6 +7,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // var random bool
@@ -17,6 +18,15 @@ var recommendCmd = &cobra.Command{
 	Short: "Get a movie recommendation",
 	Long:  `Use this command to get a movie recommendation for you to watch`,
 	Run: func(cmd *cobra.Command, args []string) {
+		err := viper.ReadInConfig()
+		fmt.Println(viper.Get("THE_MOVIE_DB_API_KEY"))
+		if err != nil {
+			panic(fmt.Errorf("fatal error config file: %w", err))
+		}
+		if viper.Get("THE_MOVIE_DB_API_KEY") == "" {
+			fmt.Println("IMDB Api key is empty")
+			return
+		}
 		fmt.Println("recommend called")
 		// if random {
 		// 	fmt.Println("Random was called")

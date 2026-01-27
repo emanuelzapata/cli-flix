@@ -19,6 +19,10 @@ var loginCmd = &cobra.Command{
 	Long: `Use this login command to set your local API key for TheMovieDB which can be gotten from https://developer.themoviedb.org/docs/getting-started 
 	Currently this version of cli-flix only supports TheMovieDB but other services will be implemented soon!`,
 	Run: func(cmd *cobra.Command, args []string) {
+		// fmt.Println(cmd.LocalFlags().GetString("apikey"))
+		key, _ := cmd.LocalFlags().GetString("apikey")
+
+		fmt.Println(key)
 		fmt.Println("login called")
 		fmt.Println(apiKey)
 		viper.Set("THE_MOVIE_DB_API_KEY", apiKey)
