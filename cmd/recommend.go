@@ -4,6 +4,7 @@ Copyright © 2026 Emanuel Zapata
 package cmd
 
 import (
+	"cli-flix/internal"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -27,16 +28,10 @@ var recommendCmd = &cobra.Command{
 			if apiKey == "" {
 				fmt.Println("Please set an API key")
 			} else {
-				fmt.Println("Making request")
-				getRandomRecommendation(apiKey)
+				internal.GetRandomRecommendation(apiKey)
 			}
 		}
 	},
-}
-
-func getRandomRecommendation(apiKey string) string {
-	fmt.Println(apiKey)
-	return "Random"
 }
 
 func init() {
